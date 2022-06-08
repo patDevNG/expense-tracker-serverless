@@ -3,14 +3,17 @@ app: expense-tracker-1
 service: expense-tracker-1
 frameworkVersion: '3'
 
+plugins:
+  - serverless-offline
+
 provider:
   name: aws
   runtime: nodejs14.x
 
 functions:
-  hello:
-    handler: handler.hello
+  endpoint:
+    handler: handler.endpoint
     events:
       - httpApi:
-          path: /
+          path: /pong
           method: get

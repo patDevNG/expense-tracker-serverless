@@ -1,0 +1,51 @@
+
+version: "3"
+
+services:
+  database:
+    container_name: database
+    image: mysql:5.7
+    platform: linux/amd64
+    command: --default-authentication-plugin=mysql_native_password
+
+    environment:
+      MYSQL_DATABASE: my_expenses
+      MYSQL_USER: mysqluser
+      MYSQL_PASSWORD: mysqlpassword
+      MYSQL_ROOT_PASSWORD: mysqlrootpassword
+
+    healthcheck:
+      test: mysqladmin ping --password=mysqlrootpassword
+    ports:
+      - 3308:3308  
+  expense_api:
+    container_name: expense_api
+    build: .
+    tty: true
+    ports:
+      - "4500:4500" 
+      - "45001:45001" 
+    environment:
+      LOG_LEVEL: debug
+      DB_HOST: database
+      DB_READER_HOST: database
+      DB_DATABASE: my_expenses
+      DB_USERNAME: mysqluser
+      DB_PASSWORD: mysqlpassword
+      DEBUG: "sequelize:*"
+    healthcheck:
+      test: curl --fail http://localhost:4500/pong || exit 1
+      interval: 15s
+      timeout: 2s
+      retries: 10
+    depends_on:
+      database:
+              condition: service_healthy  
+  awscli:
+    container_name: awscli
+    image: amazon/aws-cli
+    environment:
+      AWS_ACCESS_KEY_ID: KEY
+      AWS_SECRET_ACCESS_KEY: SECRET
+      AWS_REGION: eu-west-2
+    entrypoint: /bin/sh
