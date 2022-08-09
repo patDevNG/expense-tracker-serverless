@@ -9,7 +9,7 @@ plugins:
 provider:
   name: aws
   runtime: nodejs14.x
-
+  
 functions:
   endpoint:
     handler: handler.endpoint
@@ -17,3 +17,61 @@ functions:
       - httpApi:
           path: /pong
           method: get
+          
+  createExpenseHead:
+    handler: src/functions/expenseHead.createExpenseHeadHandler
+    events:
+      - http:
+          path: /create/expensehead
+          method: post
+          cors: true
+  getExpenseHeadById:
+    handler: src/functions/expenseHead.getExpenseHeadByIdHandler
+    events:
+      - http:
+          path: /filter/expensehead/:id
+          method: get
+          cors: true  
+  getExpenseHeads:
+    handler: src/functions/expenseHead.getExpenseHeadHandler
+    events:
+      - http:
+          path: /filter/expenseheads
+          method: get
+          cors: true                  
+  updateExpenseHeads:
+    handler: src/functions/expenseHead.updateExpenseHeadHandler
+    events:
+      - http:
+          path: /filter/expenseheads
+          method: patch
+          cors: true
+  createExpenses:
+    handler: src/functions/expense.createExpensesHandler
+    events:
+      - http:
+          path: /create/expense
+          method: post
+          cors: true
+  getExpenseById:
+    handler: src/functions/expense.getExpenseByIdHandler
+    events:
+      - http:
+          path: /filter/expense/:id
+          method: get
+          cors: true 
+  getExpenses:
+    handler: src/functions/expense.filterExpensesHandler
+    events:
+      - http:
+          path: /filter/expenses
+          method: get
+          cors: true 
+  updateExpenses:
+    handler: src/functions/expense.updateExpenseshandler
+    events:
+      - http:
+          path: /filter/expenses
+          method: patch
+          cors: true                            
+                      

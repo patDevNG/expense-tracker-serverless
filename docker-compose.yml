@@ -4,20 +4,15 @@ version: "3"
 services:
   database:
     container_name: database
-    image: mysql:5.7
+    image: mongo:5.0
     platform: linux/amd64
-    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 27017:27017
 
     environment:
-      MYSQL_DATABASE: my_expenses
-      MYSQL_USER: mysqluser
-      MYSQL_PASSWORD: mysqlpassword
-      MYSQL_ROOT_PASSWORD: mysqlrootpassword
+      - MONGO_INITDB_ROOT_USERNAME=expense_tracker
+      - MONGO_INITDB_ROOT_PASSWORD=secret
 
-    healthcheck:
-      test: mysqladmin ping --password=mysqlrootpassword
-    ports:
-      - 3308:3308  
   expense_api:
     container_name: expense_api
     build: .

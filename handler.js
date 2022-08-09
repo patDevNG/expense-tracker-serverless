@@ -1,6 +1,7 @@
 "use strict";
-
+const {connectToDb} = require('./src/lib/database')
 module.exports.endpoint = async (event) => {
+  await connectToDb();
   return {
     statusCode: 200,
     body: JSON.stringify(
