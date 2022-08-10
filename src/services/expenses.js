@@ -80,6 +80,7 @@ const updateExpenses = async(event)=>{
           amount,
           expenseHead: expenseHeadId 
         }, {new: true}) 
+        console.log('Testing')
         return {
             statusCode: 200,
             body: JSON.stringify(expenses)
