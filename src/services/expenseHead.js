@@ -5,7 +5,8 @@
 
 const {ExpenseHead} = require('../model');
 const {connectToDb} = require('../lib/database');
-const {ValidationError} = require('../lib/errors')
+const mongoose = require('mongoose')
+const {Types} = mongoose;
 
 const createExpenseHead = async(event) =>{
     try {
@@ -104,9 +105,29 @@ const updateExpenseHeads = async(event)=>{
     }
 }
 
+const deleteExpenseHead = async(event)=>{
+    try {
+        await connectToDb();
+        const {id} = event.pathParameters;
+        await ExpenseHead.findByIdAndDelete(Types.ObjectId(id));
+        return {
+            statusCode: 202,
+            body: "Expense deleted"
+        }
+    } catch (error) {
+        console.log(error)
+        return {
+            statusCode: 404,
+            code:'001',
+            message: `${error}`
+        }
+    }
+}
+
 module.exports = {
     createExpenseHead,
     getExpenseHeadById,
     getExpenseHeads,
-    updateExpenseHeads
+    updateExpenseHeads,
+    deleteExpenseHead
 }

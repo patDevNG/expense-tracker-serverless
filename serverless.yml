@@ -1,10 +1,11 @@
-org: patdevng
-app: expense-tracker-1
+
 service: expense-tracker-1
 frameworkVersion: '3'
 
 plugins:
+  - serverless-auto-swagger
   - serverless-offline
+
 
 provider:
   name: aws
@@ -29,7 +30,7 @@ functions:
     handler: src/functions/expenseHead.getExpenseHeadByIdHandler
     events:
       - http:
-          path: /filter/expensehead/:id
+          path: /filter/expensehead/{id}
           method: get
           cors: true  
   getExpenseHeads:
@@ -43,35 +44,49 @@ functions:
     handler: src/functions/expenseHead.updateExpenseHeadHandler
     events:
       - http:
-          path: /filter/expenseheads
+          path: /filter/expenseheads/{id}
           method: patch
           cors: true
   createExpenses:
-    handler: src/functions/expense.createExpensesHandler
+    handler: src/functions/expenses.createExpensesHandler
     events:
       - http:
           path: /create/expense
           method: post
           cors: true
   getExpenseById:
-    handler: src/functions/expense.getExpenseByIdHandler
+    handler: src/functions/expenses.getExpenseByIdHandler
     events:
       - http:
-          path: /filter/expense/:id
+          path: /filter/expense/{id}
           method: get
           cors: true 
   getExpenses:
-    handler: src/functions/expense.filterExpensesHandler
+    handler: src/functions/expenses.filterExpensesHandler
     events:
       - http:
           path: /filter/expenses
           method: get
           cors: true 
   updateExpenses:
-    handler: src/functions/expense.updateExpenseshandler
+    handler: src/functions/expenses.updateExpenseshandler
     events:
       - http:
-          path: /filter/expenses
+          path: /filter/expenses/{id}
           method: patch
-          cors: true                            
+          cors: true    
+  deleteExpenses:
+    handler: src/functions/expenses.deleteExpensesHandler
+    events:
+      - http:
+          path: /delete/expenses/{id}
+          method: delete
+          cors: true 
+  deleteExpenseHead:
+    handler: src/functions/expenseHead.deleteExpenseHandler
+    events:
+      - http:
+          path: /delete/expenseHead/{id}
+          method: delete
+          cors: true                                            
                       
