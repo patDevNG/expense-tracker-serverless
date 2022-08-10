@@ -48,7 +48,13 @@ const getExpenseHeadById = async(event)=>{
             body: JSON.stringify(expenseHead)
         }
     } catch (error) {
-        throw new Error(`Error : ${error}`)
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                code: '001',
+                message: `${error}`
+            })
+        }
     }
 }
 
@@ -62,7 +68,13 @@ const getExpenseHeads = async(event)=>{
         }
 
     } catch (error) {
-        throw new Error(`Error : ${error}`)  
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                code: '001',
+                message: `${error}`
+            })
+        }
     }
 }
 
@@ -82,7 +94,13 @@ const updateExpenseHeads = async(event)=>{
             body: JSON.stringify(expenseHead)
         }
     } catch (error) {
-        throw new Error(`Error : ${error}`)
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                code: '001',
+                message: `${error}`
+            })
+        }
     }
 }
 

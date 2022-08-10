@@ -1,6 +1,6 @@
 org: patdevng
 app: expense-tracker-1
-service: expense-tracker-1
+service: testing
 frameworkVersion: '3'
 
 plugins:

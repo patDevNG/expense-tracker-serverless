@@ -20,7 +20,13 @@ const createExpenses = async(event)=>{
             body: JSON.stringify(expenses)
         }
     } catch (error) {
-        
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                code: '002',
+                message: `${error}`
+            })
+        }
     }
 }
 
@@ -34,7 +40,13 @@ const getExpenseById = async(event) =>{
             body: JSON.stringify(expenses)
         }   
     } catch (error) {
-      throw new Error(`${error}`)  
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                code: '002',
+                message: `${error}`
+            })
+        }
     }
  
 }
@@ -48,7 +60,13 @@ try {
         body: JSON.stringify(expenses)
     }
 } catch (error) {
-    throw new Error(`${error}`)  
+    return {
+        statusCode: 400,
+        body: JSON.stringify({
+            code: '002',
+            message: `${error}`
+        })
+    }
 }
 }
 
@@ -67,7 +85,13 @@ const updateExpenses = async(event)=>{
             body: JSON.stringify(expenses)
         }
     } catch (error) {
-        
+        return {
+            statusCode: 400,
+            body: JSON.stringify({
+                code: '002',
+                message: `${error}`
+            })
+        }
     }
 
 
